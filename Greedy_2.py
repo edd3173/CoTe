@@ -1,4 +1,7 @@
 
+''' 1이 될 때까지'''
+
+
 data=list(map(int,input().split()))
 
 print(data)
