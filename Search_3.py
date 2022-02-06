@@ -57,7 +57,6 @@ def bfs(x,y): # Is visited necessary? Nope!
 
 bfs(0,0)
 
-#print(ans)
 
 
 
