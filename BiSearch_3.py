@@ -1,6 +1,6 @@
-    """
-    정렬된 배열에서 특정 수의 갯수 구하기
-    """
+"""
+정렬된 배열에서 특정 수의 갯수 구하기
+"""
 
 
 from bisect import bisect_left, bisect_right
