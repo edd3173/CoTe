@@ -1,7 +1,7 @@
 from bisect import bisect_left, bisect_right
 
 """
-Binary Search
+Binary Search Ver Recurse
 """
 
 def binary_search(arr,target,start,end):
@@ -15,6 +15,22 @@ def binary_search(arr,target,start,end):
     else:
         return binary_search(arr,target,mid+1,end)
     
+"""
+Binary Search With Iteration
+"""
+
+def binary_search(arr,target,start,end):
+    while start<=end:
+        mid=(start+end)//2
+        
+        if(arr[mid]==target):
+            return mid
+        elif(arr[mid]>target):
+            end=mid-1
+        else:
+            start=mid+1
+    return None
+
 
 """
 # Use Bisec to find a number of N in range(a,b)
