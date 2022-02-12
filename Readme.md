@@ -14,6 +14,7 @@ Day3 02.05.
 Day 3 02.06
 영상 3강 bfs/dfs 끝.
 책 5장 bfs/dfs 끝.
+마지막 문제 어렵다
 
 Day 4. 02.07.
 Bad Cond.
