@@ -1,3 +1,11 @@
+"""
+개선된 다익스트라 알고리즘.
+양방향이라면? 2번 넣으면 되지.
+graph[a].append((b,c)) a->b with c
+graph[b].append((a,c)) 이렇게.
+"""
+
+
 import heapq
 import sys
 
@@ -50,12 +58,17 @@ def dijkstra(start):
     
     while q:
         dist,now = heapq.heappop(q) # cost, vertice 
+        # distance[now] : 이미 계산된 table 값.
+        # dist: heap에서 꺼낸 원소의 거리값.
+        
         if distance[now]<dist: # Need not to update. Visited.
             continue
-        for i in graph[now]: #like bfs, find adj
-            new=dist+i[1] # i:[vert,cost <-> opp of q
+        
+        for i in graph[now]: #like bfs, find adj nodes. i : a set of tuples
+            new=dist+i[1] # i:[vert,cost <-> opposite of q
             if new < distance[i[0]]:
                 distance[i[0]]=new
+                # insert heap : cost & Vertice
                 heapq.heappush(q,(new,i[0])) # 값이 바뀌었으므로, 갱신을 위해 queue에 넣어야.
                 
 dijkstra(start)
