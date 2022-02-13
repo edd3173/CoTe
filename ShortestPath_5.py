@@ -1,9 +1,13 @@
+# -*- coding: utf-8 -*-
+# -*- coding: euc-kr -*-
+
+
 """
-미래도시 - F-W
+Future City
 """
 
 
-n,m = list(map(int,input().split()))
+n,m = map(int,input().split())
 INF=int(1e9)
 graph=[[INF]*(n+1) for _ in range(n+1)]
 
@@ -13,12 +17,12 @@ for i in range(1,n+1):
             graph[i][j]=0
 
 for j in range(m):
-    a,b = list(map(int,input().split())) # Get two vertices
+    a,b = map(int,input().split()) # Get two vertices
     graph[a][b]=1 # They are connected with cost 1
     # UNDIRECTED GRAPH!
     graph[b][a]=1
 
-x,k = list(map(int,input().split()))
+x,k = map(int,input().split())
 
 
 #Floyd-Warshall

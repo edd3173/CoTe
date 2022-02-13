@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+# -*- coding: euc-kr -*-
+
+
 """
 미래도시 - Dijk
 """

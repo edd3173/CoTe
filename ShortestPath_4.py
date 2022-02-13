@@ -1,4 +1,8 @@
-"""[전보전달]
+# -*- coding: utf-8 -*-
+# -*- coding: euc-kr -*-
+
+
+"""[message]
 
 3 2 1
 1 2 4
@@ -6,16 +10,20 @@
 
 """
 
-
+import sys
 import heapq
+
+
+input=sys.stdin.readline
+
 INF=int(1e9)
-N,M,C = list(map(int,input().split()))
+N,M,C = map(int,input().split())
 
 graph=[[] for i in range(N+1)]
 distance=[INF] * (N+1)
 
 for i in range(M):
-  a,b,c = list(map(int,input().split()))
+  a,b,c = map(int,input().split())
   #since this is directed graph,
   graph[a].append((b,c)) # Tuple (vertice,cost)
 
@@ -43,10 +51,12 @@ dijk(C)
 
 Cnt=0
 Max=0
+#print(distance)
 for i in range(1,N+1):
   if distance[i] != INF:
     Max=max(Max,distance[i]) # if() max 갱신... 보다 max()가 훨씬 더 좋은 방법!
-    Cnt+=1
+    if distance[i] != 0: # Distance가 0인 경우도 있지.
+      Cnt+=1
 
 print(str(Cnt)+' '+str(Max))
 

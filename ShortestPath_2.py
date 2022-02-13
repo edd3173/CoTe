@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+# -*- coding: euc-kr -*-
+
+
+
 """
 개선된 다익스트라 알고리즘.
 양방향이라면? 2번 넣으면 되지.
@@ -65,9 +70,9 @@ def dijkstra(start):
             continue
         
         for i in graph[now]: #like bfs, find adj nodes. i : a set of tuples
-            new=dist+i[1] # i:[vert,cost <-> opposite of q
-            if new < distance[i[0]]:
-                distance[i[0]]=new
+            new=dist+i[1] # dist : val to now + i[1]:added val. i:[vert,cost <-> opposite of q
+            if new < distance[i[0]]: # oldval to now.
+                distance[i[0]]=new # old is longer, so replace.
                 # insert heap : cost & Vertice
                 heapq.heappush(q,(new,i[0])) # 값이 바뀌었으므로, 갱신을 위해 queue에 넣어야.
                 
