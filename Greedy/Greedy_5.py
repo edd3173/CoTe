@@ -19,6 +19,30 @@ ans=0
 
 """
 3 - 1 - 3 - 1 ... until max m
+
+Or just do like this
+
+n,m,k = map(int,input().split())
+arr=list(map(int,input().split()))
+
+arr.sort()
+
+first=arr[n-1]
+second=arr[n-2]
+
+chunk_num = m // (k+1)
+remain_num = m % (k+1)
+
+print(chunk_num, remain_num)
+
+chunk_sum = first * k + second * 1
+remain_sum = first * remain_num
+
+SUM = chunk_sum * chunk_num + remain_sum
+print(SUM)
+
+
+
 """
 
 Iter=0

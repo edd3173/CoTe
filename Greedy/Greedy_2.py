@@ -1,14 +1,22 @@
 
 ''' 1이 될 때까지'''
 
-
-data=list(map(int,input().split()))
-
-print(data)
-
-n=data[0]
-k=data[1]
+n,k = map(int,input().split())
 ans=0
+
+print(n,end=' ')
+while n != 1:
+  if n==1:
+    break
+  if n%k == 0:
+    n//=k; ans+=1
+    print(n,end=' ')
+  else:
+    n-=1; ans+=1
+    print(n,end=' ')
+print()  
+print(ans)
+
 
 '''
 책 코드
@@ -36,18 +44,4 @@ print(ans)
 
 '''
 
-#This looks better
-
-while n!=1: #Until become 1
-    if k<=n: # when k>n, able to devide
-        if n%k ==0:
-            ans+=1
-            n//k
-        else:
-            ans+=n%k
-            n-=n%k
-    else: #Last case, when n<k, can't devide
-        ans+=n-1 #Substract
-        n=1 #To finish loop
-        
-print(ans)
+#T

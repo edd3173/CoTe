@@ -1,13 +1,8 @@
 """ 숫자 카드 게임 """
 
-
-n,m = map(int,input().split())
-
-res=0
-
 #2d array examples...
 """
-arr=[[0 for col in range(m)] for row in range(n)]
+arr=[[0] * m for _ in range(n)]
 
 for i in range(n):
   for j in range(m):
@@ -19,11 +14,12 @@ for i in arr:
   print()
 """
 
-for i in range(n):
-  curRow=list(map(int,input().split()))
-  curMin=min(curRow)
-  if curMin > res:
-    res=curMin
+n,m = map(int,input().split())
+max_val = 0
 
-print(res)
+for _ in range(0,n):
+  row = list(map(int,input().split()))
+  max_val=max(max_val,min(row))
 
+
+print(max_val)

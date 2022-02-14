@@ -1,26 +1,21 @@
+"""
+  모험가 길드
+"""
 
-''' 공포도문제 '''
 
 n=int(input())
-data=list(map(int,input().split()))
-data.sort()
+arr=list(map(int,input().split()))
+arr.sort()
 
-ans=0
-gm=0
+#print(arr)
 
-'''
-n=5
-d=1,2,2,2,3
-'''
+group_num=0
+member_num=1
 
-for idx in range(0,len(data)):
-  cf=data[idx] #Current Fear
-  gm+=1 #Current group member
-
-  #Check if gm >= cf
-  if(gm >= cf):
-    ans+=1 #Update ans
-    gm=0 #Initialize Group
-
-
-print(ans)
+for idx in range(n):
+  member_num+=1 # 비교하기 전에 우선 그룹에 넣는다.
+  if member_num >= arr[idx]: # 멤버수 >= 공포도
+    member_num=0
+    group_num+=1
+  
+print(group_num)
