@@ -1,20 +1,4 @@
 """문자열 재정렬"""
-
-data=input()
-
-Sum=0
-#List
-Chars=list()
-# or, Chars=[]
-
-for ch in data:
-  if ch >= '1' and ch <= '9':
-    Sum+=int(ch)
-  else:
-    Chars+=ch
-    #Chars.append(ch)
-    # Or, we can use Chars.append(ch)
-
 """
 POINTS:
 
@@ -32,17 +16,37 @@ because Chars here is list, not a string.
 
 
 
-Chars.sort()
-#print(Chars)
-#print(Sum)
-
-# SEPERATOR.JOIN(ITERABLE) returns single string
-Str=''.join(Chars)
-
-# CHECK!!! Sum may be 0
-if Sum!=0:
-    ans=Str+str(Sum)
-else:
-    ans=Str
+String=input()
+alphabets=[]
+numbers=[]
+for Char in String:
+  if Char.isalpha() == True:
+    alphabets.append(Char)
+  elif Char.isdigit() == True:
+    numbers.append(int(Char))
     
-print(ans)
+alphabets.sort()
+
+"""
+Rather than
+
+Alpha=""
+for Char in alphabets:
+  Alpha+=str(Char)
+  
+USE JOIN!
+out = str(_some_list) not works!
+-> out = ''.join(_some_list)
+"""
+
+
+Alpha=''.join(alphabets)
+
+Sum=sum(numbers)
+
+if Sum!=0:
+  print(Alpha+str(Sum))
+else:
+  print(Alpha)
+
+

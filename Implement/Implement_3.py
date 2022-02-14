@@ -1,63 +1,71 @@
-""" 게임 개발 """
 
-n, m = list(map(int, input().split()))
+n,m = map(int,input().split())
+px,py,_dir = map(int,input().split())
 
-print(n, m)
+arr=[]
+for _ in range(n):
+  arr.append(list(map(int,input().split())))
 
-px, py, pd = list(map(int, input().split()))
+visited=[[False]* m for _ in range(n)]
 
-# Visited Array
-V = [[0] * m for _ in range(n)]
-V[px][py] = 1  # Point Visited
-
-# 2D array input
-arr = []
-for i in range(n):
-    arr.append(list(map(int, input().split())))
-
-# N,E,S,W
+# North,East,South,West
 dx=[-1,0,+1,0]
 dy=[0,+1,0,-1]
-Dir=pd
-cnt=0
 
-# KEYPOINT: To Determine turn time. Look four direction
+def change_direction():
+  global _dir
+  _dir -= 1
+  if(_dir==-1): _dir=3
+  """
+  Turn_Time은 main으로 가야된대.
+
+  global dirCnt
+  dirCnt+=1
+  """
+
+# Initialize
 turn_time=0
+visited[px][py]=True # Mark Visited! Important!
+res=1 # So initial visit_num equal 1
 
-
-def turn_left():
-  global Dir
-  Dir-=1
-  if(Dir==-1):
-    Dir=3
-
-while True: #Why? Do this until four direction is all finished -> Fine
+while True:
+   
+  # Step1. Rotate. _dir=0, 
+  change_direction()
   
-  turn_left()
-  nx=px+dx[Dir]
-  ny=py+dy[Dir]
+  # _dir == 3, means dx/dy[_dir] goes West
+  nx=px+dx[_dir]
+  ny=py+dy[_dir]
 
-  #2. Check Cond: Not Visited, and Not Sea
-  if(V[nx][ny] == 0 and arr[nx][ny]==0):
-    # Mark as Visited, Update Position 
-    V[nx][ny]=1; px=nx; py=ny
-    turn_time=0 # Init.
-    cnt+=1 # Update
-    continue # Is Necessary? Not Necessary but useful. 이하코드는 실행될 일이 없음.
+  # Not Visited, Valid
+  if(arr[nx][ny]==0 and visited[nx][ny]==False):
+    visited[nx][ny]=True # Mark
+    px=nx; py=ny; # Update Pos
+    turn_time=0 # Initialize turns
+    res+=1
+    continue # Finish. Is Necessary? Not Necessary but useful. 이하코드는 실행될 일이 없음.
     # else는 실행 어차피 안되고, turn_time은 0으로 초기화됨. 아래까지 안내려감.
-  else:
-    #turn_left() WRONG. 이미 위에서 했음.
+  else: # go back to step 1. no need to change_dir, since it is done in step 1
     turn_time+=1
-  
-  if(turn_time==4): # 4방향 다 둘러봤는데 없음.
-    # Go back.
-    nx-=dx[Dir]; ny-=dy[Dir]
-    # Is Sea?
-    if(arr[nx][ny]==0):
-      break # Escape
-    else: # Update position
-      px=nx; py=ny
 
-print(cnt)
+  # Step3. Check for escapes
+  if turn_time==4:
+    nx=px-dx[_dir] # px: original. px-dx : 1step go back.
+    ny=py-dy[_dir] # py : same
+
+    if arr[nx][ny]==1: # Escape condition
+      break
+    else: 
+      px=nx; py=ny; # Update Pos
+    turn_time=0 # Initialize turns
+
+print(res)
+
+
+
+  
+
+
+
 
   

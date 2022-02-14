@@ -1,6 +1,5 @@
 """ 시각문제 """
 
-n = int(input())
 
 """
 Start With Big Scale
@@ -15,14 +14,14 @@ h-m-s 에서 m이랑 s를 60까지 for문 돌리고
 string찾으면 되잖아
 """
 
+n=int(input())
 cnt=0
+
 for h in range(n+1):
   for m in range(60):
-    for s in range(60): #Like this
-      # Then, how can we find '3' in str?
-      # Python The Great...
-      Time = str(h) + str(m) + str(s)
-      if('3' in Time): # IN -> str.contains()
+    for s in range(60):
+      _time = str(h)+str(m)+str(s)
+      if '3' in _time: # .contains? just use 'IN'
         cnt+=1
 
 print(cnt)
