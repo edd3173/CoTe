@@ -27,4 +27,9 @@ for i in M:
     else:
         print("Yes",end=' ')
 
-    
+    """
+    이진탐색 안쓰고 'in'으로도 해결 가능하지만, list쓰면 안됨.
+    list는 시간복잡도가 크다!
+    따라서 N/M=set(map(int,input().split()))
+    한 뒤에 in을 사용한다.
+    """

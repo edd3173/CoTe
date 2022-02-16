@@ -1,35 +1,36 @@
-"""
-떡볶이 떡 만들기
-"""
+n,m = map(int,input().split())
+datas=list(map(int,input().split()))
+datas.sort()
+ans=[]
 
-n,m=list(map(int,input().split()))
-
-arr=list(map(int,input().split()))
-
-start=0
-end=max(arr)
-H=[]
-ans=0
-
-while start <= end: # Important! 결국 start와 end의 gap은 줄어든다!!!!
+def getVal(arr, height):
   sum=0
-  mid = (start + end) // 2
-  for x in arr:
-    if x>mid:
-      sum+=(x-mid)
-    #else: Don't need? 문제를 읽자! 아예 떡을 얻어갈 수 없음.
-     # sum+=x
+  for data in arr:
+    if data<height:
+      continue
+    elif data>=height:
+      sum+=data-height
+  return sum
 
-   # Be Aware Of Scope!  
-  if sum < m:
-    end=mid-1
-  else:
-    H.append(mid)
-    #ans=mid
-    start=mid+1 
+def binary_search(target,start,end): # array안의 data를 찾는게 아니잖아?
+  global datas
+  while start<=end:
+    mid = (start+end) // 2
+    val = getVal(datas,mid)
+    if val < target:
+      end=mid-1
+    elif val >= target: # 떡길이>타겟. 따라서 start를 올려야. end를 줄이는 것이 아니다!! end를 줄이면 떡 양이 늘어나지.
+      ans.append(mid)
+      start=mid+1
+
+binary_search(m, 0, max(datas))
+print(max(ans))
 
 
-#print(H)
-ans=max(H)
-print(ans)
-    
+
+"""
+Point1. arr 안의 값을 찾는 것이 아니다! 더 단순함! 하지만 더 어렵다
+Point2. 일반적인 이진탐색 코드와 반대. 이 문제에서는 end를 줄이면 떡양이 늘어남. 따라서 start를 늘려서 떡양을 줄여야.
+자 크기에 꼳히지 말고, 떡 양에 집중
+
+"""

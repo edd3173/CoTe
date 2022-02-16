@@ -37,32 +37,28 @@ print(arr)
 """
 Quick Sort
 """
-arr = [7,5,9,0,3,1,6,2,4,8]
+
+# Quick Sort
 
 def quick_sort(arr,start,end):
-    if start >= end:
-        return
-    pivot = start
-    left = start+1
-    right = end
+  if start>=end:
+    return
+  pivot = start
+  left = start+1
+  right = end
+  while left<= right: # 엇갈릴때까지.
+    while left <= end and arr[left] <= arr[pivot]: # 왼쪽:pivot val 보다 큰거 찾을때 까지 이동
+      left+=1
+    while right > start and arr[right] >= arr[pivot]: # 오른쪽:pivot val 보다 작은거 찾을 때 까지 이동.
+      right-=1
+    if left>right: # 더 작은 값과 피봇 교체. ㅇ기서 작은 값은 arr[right]
+      arr[right], arr[pivot] = arr[pivot], arr[right]
+    else:
+      # 따라서 왼쪽에는 pivot보다 작은 것들이 모임. right(<piv_val),left(>piv_val)가 스위치 됨
+      arr[left],arr[right] = arr[right],arr[left]
+  quick_sort(arr, start, right-1)
+  quick_sort(arr, right+1, end)
 
-    while(left <= right):
-        while(left<=end and arr[left] <= arr[pivot]):
-            left+=1
-        while(right>start and arr[right] >= arr[pivot]):
-            right-=1
-        if(left>right): # Crossed. arr[right] is smaller
-            arr[right], arr[pivot] = arr[pivot], arr[right]
-        else:
-            arr[left], arr[right] = arr[right], arr[left]
-        
-        quick_sort(arr,start,right-1)
-        quick_sort(arr,right+1,end)
-
-
-quick_sort(arr,0,len(arr)-1)
-
-print(arr)
 
 
 """
