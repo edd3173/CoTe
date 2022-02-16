@@ -40,6 +40,9 @@ def bfs(x,y): # Is visited necessary? Nope!
     print( '('+str(px)+','+str(py)+')')
     for i in range(4):
       nx=px+dx[i]; ny=py+dy[i];
+      
+      # graph[nx][ny]==0 이 앞에 오면, OOR 로 빠꾸 먹을 수 있다.
+      # 앞의 nx<0에서 걸러주니까 뒤에 index oor가 안뜨는듯?
       if(nx<0 or nx>=n or ny<0 or ny>=m or graph[nx][ny] == 0):
         #continue? what to do?
         #nx-=dx[i]; ny-=dy[i] # Go back
@@ -57,6 +60,39 @@ def bfs(x,y): # Is visited necessary? Nope!
 
 bfs(0,0)
 
+"""
+2nd loop
+from collections import deque
 
+graph=[]
+n,m=map(int,input().split())
+for _ in range(n):
+  graph.append(list(map(int,input())))
+
+move_set=[(+1,0),(-1,0),(0,+1),(0,-1)]
+cnt=0
+
+def bfs(px,py):
+  global cnt
+  q=deque([(px,py)])
+  graph[px][py]=1 # mark as visited
+  
+  while q:
+    v = q.popleft()
+    px=v[0]; py=v[1]
+    print("(%d, %d, %d)",px,py,graph[px][py])
+  
+    for move in move_set:
+      nx=px+move[0]; ny=py+move[1]
+      if nx<0 or nx>=n or ny<0 or ny>=m:
+        continue
+      if graph[nx][ny] == 1:
+        graph[nx][ny]=graph[px][py]+1
+        q.append((nx,ny))
+
+bfs(0,0)
+print(graph[n-1][m-1])
+
+"""
 
 
