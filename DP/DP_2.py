@@ -46,6 +46,8 @@ for i in range(5,n+1):
 print(DP[n])
 """
 
+# 여속적으로, 값ㅡ 갱ㅣㄴ.
+
 for i in range(2,n+1):
   DP[i]=DP[i-1]+1
   

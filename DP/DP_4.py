@@ -1,34 +1,25 @@
-"""
-  금광문제
-
-  아! 스포당해버렸다!
-"""
-
-n,m = list(map(int,input().split()))
+n,m = map(int,input().split())
 arr=list(map(int,input().split()))
 
-dp=[]
-idx=0
+dp=[]; j=0
+for i in range(n):
+  dp.append(arr[j:j+m]) # 한번에 입력&assign이 아니라, 입력받고 나서 옮긴다.
+  j+=m
+
+#print(dp)
 
 for i in range(n):
-  dp.append(arr[idx:idx+m])
-  idx+=m
-
-
-for j in range(1,m):
-  for i in range(n): # Double for loop? Simply?
-    if i+1==n: # This must from left up or left
-      dp[i][j]=dp[i][j]+max(dp[i-1][j-1],dp[i][j-1]) # 바닥을 뚫음.
-    elif i==0: # This must from left down or left
+  for j in range(1,m):
+    if i == 0: # possible direction: from left, leftdown
+      # NOTICE: arr[i][j] is wrong! arr is 1d array
       dp[i][j]=dp[i][j]+max(dp[i][j-1],dp[i+1][j-1])
-    else: # From left or leftdown or leftup
+    elif i == n-1: # possible direction: from left, leftup
+      dp[i][j]=dp[i][j]+max(dp[i-1][j-1],dp[i][j-1])
+    else: # 3 possible direction.
       dp[i][j]=dp[i][j]+max(dp[i-1][j-1],dp[i][j-1],dp[i+1][j-1])
 
 res=0
 for i in range(n):
-  for j in range(m):
-    res=max(res,dp[i][j])
+  res=max(res,dp[i][m-1])
 
 print(res)
-
-
