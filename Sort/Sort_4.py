@@ -3,6 +3,14 @@
 python의 tuple을 사용할 줄 알아야.
 """
 
+
+def _key(data):
+    return data[1]
+
+
+
+
+
 n=int(input())
 
 arr=[]
@@ -12,6 +20,10 @@ for i in range(n):
     
 # lambda 매개변수 : 표현식
 arr=sorted(arr,key=lambda student: student[1])
+
+# By key_func
+arr=sorted(arr,key=_key)
+
 
 for i in range(n):
     print(arr[i][0],end=' ')
