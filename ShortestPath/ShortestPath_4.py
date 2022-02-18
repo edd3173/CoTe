@@ -58,8 +58,8 @@ for i in range(1,N+1):
     if distance[i] != 0: # Distance가 0인 경우도 있지.
       Cnt+=1
 
-print(str(Cnt)+' '+str(Max))
-
+#print(str(Cnt)+' '+str(Max))
+print(Cnt, Max)
 
 
 
