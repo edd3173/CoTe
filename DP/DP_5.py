@@ -17,7 +17,7 @@ dp=[1] * n
 # LIS 알고리즘 : 증가하는 가장 큰 부분순열. 여기서는 4,5,8,11,15가 나오게됨.
 for i in range(1,n):
   for j in range(0,i):
-    if arr[j]<arr[i]:
+    if arr[j]<arr[i]: # 앞이 뒤보다 작음
       dp[i]=max(dp[i],dp[j]+1)
 
 print(n-max(dp))
