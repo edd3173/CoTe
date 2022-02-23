@@ -1,3 +1,8 @@
+"""
+자물쇠와 열쇠
+"""
+
+
 def rotate_matrix(a):
     """
     #Init new_mat
@@ -45,37 +50,35 @@ def solution(key, lock):
     
     # Input val of original lock
     start=new_n//3
-    end=(new_n//3) * 2
+    end=new_n//3 * 2
     
     for i in range(start,end):
         for j in range(start,end):
             new_lock[i][j]=lock[i-start][j-start]
-    #print(new_lock)
+
     
     # for every rotation
     for rotate in range(4): # rotate 4 time
         
         key=rotate_matrix(key) # rotated
-        combined_mat=new_lock # combined puzzle
-        #print(new_lock)
-        #print(combined_mat)
-        
         for i in range(0,new_n-n): # in new_lock
             for j in range(0,new_n-n): # in new_lock
             
                 for k in range(0,m):
                     for l in range(0,m): # for each array of key
                         
-                        combined_mat[i+k][j+l] = new_lock[i+k][j+l] + key[k][l] # make combined
-                        res = check_cond(combined_mat) # check condition
+                        new_lock[i+k][j+l]+=key[k][l] # make combined
+                        res = check_cond(new_lock) # check condition
                         
-                        if(res==True):
-                            return True
-        print(new_lock)
-        
+                if(res==True): # Becareful about indent(place) in loop. we check this after for(k,l), when insert is finished
+                    return True
+                        
+                for k in range(0,m): # Same as here, restore
+                    for l in range(0,m): # for each array of key
+                        new_lock[i+k][j+l]-=key[k][l]
     return False
 
-
+# Be aware of array copy!
 
 key=[[0, 0, 0], [1, 0, 0], [0, 1, 1]]
 lock=[[1, 1, 1], [1, 1, 0], [1, 0, 1]]
