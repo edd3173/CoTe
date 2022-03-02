@@ -27,8 +27,8 @@ def solution(n, weak, dist): # 봐도 모르겠군...
                         break
                     position = weak[idx] + friends[count-1]
             answer = min(answer,count)
-        if answer>len(dist)
-        return -1
+        if answer>len(dist):
+            return -1
     return answer
 
 
