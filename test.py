@@ -1,8 +1,7 @@
 
 
 
+a=3
+b=7
 
-
-hello = "abcdefg"
-myHello = hello[1:len(hello)-1]
-print(type(myHello))
+print(int(a/b))
