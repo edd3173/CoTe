@@ -15,11 +15,13 @@ for i in arr:
 """
 
 n,m = map(int,input().split())
-max_val = 0
 
-for _ in range(0,n):
-  row = list(map(int,input().split()))
-  max_val=max(max_val,min(row))
+Max=-int(1e9)
 
+for _ in range(n):
+  cur = list(map(int,input().split()))
+  curVal = min(cur)
+  if Max < curVal:
+    Max = curVal
 
-print(max_val)
+print(Max)

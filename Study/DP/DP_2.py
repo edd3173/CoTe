@@ -2,13 +2,7 @@
 1로만들기
 """
 
-n=int(input())
-
-DP=[0]*100
-
 #Initial value
-
-DP[1]=0;DP[2]=1;DP[3]=1;DP[4]=2;DP[5]=1
 
 # 1,/2,/3,/5로 값을 갱신해야 최소값이 되지 않을까? ㅇㅇ 맞음.
 
@@ -46,19 +40,25 @@ for i in range(5,n+1):
 print(DP[n])
 """
 
-# 여속적으로, 값ㅡ 갱ㅣㄴ.
 
-for i in range(2,n+1):
-  DP[i]=DP[i-1]+1
+n=int(input())
+INF=int(1e9)
+dp=[INF]* 30001
+
+dp[1]=0;dp[2]=1;dp[3]=1;dp[4]=2;dp[5]=1
+
+
+
+for i in range(6,n+1): # 4개 조건이 '한번에' 믂여야
+  dp[i]=dp[i-1]+1
   
   if i%2 == 0:
-    DP[i]=min(DP[i],DP[i//2]+1)
-  
-  if i%3 == 0: #Elif가 아니라 그냥 if.
-    DP[i]=min(DP[i],DP[i//3]+1)
-  
+    dp[i]=min(dp[i],dp[i//2]+1)
+    
+  if i%3 == 0:
+    dp[i]=min(dp[i],dp[i//3]+1)
+    
   if i%5 == 0:
-    DP[i]=min(DP[i],DP[i//5]+1)
+    dp[i]=min(dp[i],dp[i//5]+1)
 
-print(DP[n])
-  
+print(dp[n])

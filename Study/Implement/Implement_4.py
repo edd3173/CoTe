@@ -40,13 +40,27 @@ out = str(_some_list) not works!
 """
 
 
-Alpha=''.join(alphabets)
 
-Sum=sum(numbers)
+data = input()
 
-if Sum!=0:
-  print(Alpha+str(Sum))
+alphabets=[]
+numbers=[]
+
+for ch in data:
+  if ch.isdigit():
+    numbers.append(int(ch))
+  if ch.isalpha():
+    alphabets.append(ch)
+
+alphabets.sort()
+sumVal = sum(numbers)
+#print(sumVal)
+
+alphabetString = "".join(alphabets)
+if sum == 0:
+  ans = alphabetString
 else:
-  print(Alpha)
+  ans = alphabetString + str(sumVal)
 
+print(ans)
 

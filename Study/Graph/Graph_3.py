@@ -37,7 +37,7 @@ def bfs(x,y): # Is visited necessary? Nope!
     if px== n-1 and py== m-1:
       print(graph[px][py])
       break
-    print( '('+str(px)+','+str(py)+')')
+    #print( '('+str(px)+','+str(py)+')')
     for i in range(4):
       nx=px+dx[i]; ny=py+dy[i];
       
@@ -61,37 +61,44 @@ def bfs(x,y): # Is visited necessary? Nope!
 bfs(0,0)
 
 """
-2nd loop
+
+2nd 츄라이
+
 from collections import deque
 
-graph=[]
-n,m=map(int,input().split())
+n,m = map(int,input().split())
+arr=[]
 for _ in range(n):
-  graph.append(list(map(int,input())))
+  arr.append(list(map(int,input())))
+px=0; py=0
 
-move_set=[(+1,0),(-1,0),(0,+1),(0,-1)]
-cnt=0
+visited = [[False]* m for _ in range(n)]
+move_set = [(+1,0),(-1,0),(0,+1),(0,-1)]
 
-def bfs(px,py):
-  global cnt
-  q=deque([(px,py)])
-  graph[px][py]=1 # mark as visited
-  
+def bfs(x,y):
+  q=deque([(x,y)])
   while q:
-    v = q.popleft()
-    px=v[0]; py=v[1]
-    print("(%d, %d, %d)",px,py,graph[px][py])
-  
+    px,py = q.popleft()
     for move in move_set:
       nx=px+move[0]; ny=py+move[1]
-      if nx<0 or nx>=n or ny<0 or ny>=m:
+      if nx<0 or nx>=n or ny<0 or ny>=m or arr[nx][ny]!=1:
         continue
-      if graph[nx][ny] == 1:
-        graph[nx][ny]=graph[px][py]+1
-        q.append((nx,ny))
+      arr[nx][ny]=arr[px][py]+1
+      q.append((nx,ny))
 
 bfs(0,0)
-print(graph[n-1][m-1])
+
+
+for i in range(n):
+  for j in range(m):
+    print(arr[i][j],end=' ')
+  print()
+
+
+print(arr[n-1][m-1])
+      
+      
+    
 
 """
 

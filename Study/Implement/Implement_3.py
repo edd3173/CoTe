@@ -1,71 +1,62 @@
-
 n,m = map(int,input().split())
-px,py,_dir = map(int,input().split())
-
+px,py,d = map(int,input().split())
 arr=[]
 for _ in range(n):
   arr.append(list(map(int,input().split())))
 
-visited=[[False]* m for _ in range(n)]
+visited = [[False]*m for _ in range(n)]
+visited[px][py]=True
 
-# North,East,South,West
-dx=[-1,0,+1,0]
-dy=[0,+1,0,-1]
+directions = [0,1,2,3]
+move_set = [(-1,0),(0,+1),(+1,0),(0,-1)]
 
-def change_direction():
-  global _dir
-  _dir -= 1
-  if(_dir==-1): _dir=3
-  """
-  Turn_Time은 main으로 가야된대.
+def turn_left():
+  global d
+  d -= 1
+  if d == -1:
+    d += 4
 
-  global dirCnt
-  dirCnt+=1
-  """
+  # others"?
 
-# Initialize
-turn_time=0
-visited[px][py]=True # Mark Visited! Important!
-res=1 # So initial visit_num equal 1
+tVal=0
+cnt=1
 
 while True:
-   
-  # Step1. Rotate. _dir=0, 
-  change_direction()
+
+  turn_left()
   
-  # _dir == 3, means dx/dy[_dir] goes West
-  nx=px+dx[_dir]
-  ny=py+dy[_dir]
+  nx=px+move_set[d][0]
+  ny=py+move_set[d][1]
 
-  # Not Visited, Valid
-  if(arr[nx][ny]==0 and visited[nx][ny]==False):
-    visited[nx][ny]=True # Mark
-    px=nx; py=ny; # Update Pos
-    turn_time=0 # Initialize turns
-    res+=1
-    continue # Finish. Is Necessary? Not Necessary but useful. 이하코드는 실행될 일이 없음.
-    # else는 실행 어차피 안되고, turn_time은 0으로 초기화됨. 아래까지 안내려감.
-  else: # go back to step 1. no need to change_dir, since it is done in step 1
-    turn_time+=1
+  # OOR, or Visited, or Sea
+  if nx<0 or nx>=n or ny<0 or ny>=m or arr[nx][ny] == 1 or visited[nx][ny]==True:
+    tVal +=1 # IMPORTANT
+    
 
-  # Step3. Check for escapes
-  if turn_time==4:
-    nx=px-dx[_dir] # px: original. px-dx : 1step go back.
-    ny=py-dy[_dir] # py : same
+  # if okay, visit and update position
+  else:
+    visited[nx][ny]=True
+    px=nx; py=ny
+    cnt+=1; tVal=0
+    continue # 컨티뉴가 이쪽에 붙어야지 ㅇㅇ
 
-    if arr[nx][ny]==1: # Escape condition
+  # turned 4 times.
+  if(tVal == 4):
+    px -= move_set[d][0]
+    py -= move_set[d][1]
+    if arr[px][py]==0:
       break
-    else: 
-      px=nx; py=ny; # Update Pos
-    turn_time=0 # Initialize turns
+    else:
+      nx=px; ny=py
+    tVal=0 # 이것도 잊지 말고
 
-print(res)
+print(cnt)
 
 
-
+    
   
 
 
-
-
+  
+  
   

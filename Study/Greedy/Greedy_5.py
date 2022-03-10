@@ -23,23 +23,24 @@ ans=0
 Or just do like this
 
 n,m,k = map(int,input().split())
-arr=list(map(int,input().split()))
 
-arr.sort()
+data = (list(map(int,input().split())))
 
-first=arr[n-1]
-second=arr[n-2]
+data.sort(reverse=True)
+#print(data)
+first=data[0]; second=data[1]
+
+chunk = first * k + second # which is k+1
 
 chunk_num = m // (k+1)
-remain_num = m % (k+1)
+remains = m % (k+1)
 
-print(chunk_num, remain_num)
+ans=0
+ans += chunk * chunk_num
+ans += remains * first
 
-chunk_sum = first * k + second * 1
-remain_sum = first * remain_num
+print(ans)
 
-SUM = chunk_sum * chunk_num + remain_sum
-print(SUM)
 
 
 
