@@ -6,13 +6,6 @@ Added BFS answer code.
 """
 
 
-n,m = map(int,input().split())
-move_set=[(0,+1),(0,-1),(+1,0),(-1,0)]
-graph=[]
-#cnt=0
-for _ in range(n):
-  graph.append(list(map(int,input())))
-
 """
 def dfs(px,py):
   if px<0 or px>=n or py<0 or py>=m: # blocked
@@ -27,33 +20,39 @@ def dfs(px,py):
   return False
 """
 
-def bfs(px,py):
-  if graph[px][py] == 1:
-    #print("Wrong Input!")
-    return False
+from collections import deque
 
-  q=deque([(px,py)])
-  graph[px][py]=1 # mark visited
-  print("(%d, %d)",px,py)
+n,m = map(int,input().split())
+arr=[]
+for _ in range(n):
+  arr.append(list(map(int,input())))
+
+move_set = [(+1,0),(-1,0),(0,+1),(0,-1)]
+
+def bfs(x,y):
+  if arr[x][y]==1: # 바로 여기서!
+    return False
+  
+  q=deque([(x,y)])
+  arr[x][y]=1 # mark as visited
+  
   while q:
-    v = q.popleft()
-    px=v[0]; py=v[1]
+    px,py = q.popleft()
     for move in move_set:
-      nx=px+move[0]; ny=py+move[1]
-      if nx<0 or nx>=n or ny<0 or ny>=m :
-        continue
-      if graph[nx][ny] == 0:
-        graph[nx][ny]=1
-        q.append((nx,ny))
-  return True
-    
+      px += move[0]; py +=move[1]
+      if 0<=px<n and 0<=py<m and arr[px][py]==0: 
+        arr[px][py]=1 # mark as visited
+        q.append((px,py))
+  return True # 그럼 return false는 언제해???
+  
 cnt=0
 for i in range(n):
   for j in range(m):
-    if bfs(i,j)==True: cnt+=1
+    res = bfs(i,j)
+    if res == True:
+      cnt+=1
 
 print(cnt)
-
 
 
       
