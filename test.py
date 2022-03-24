@@ -53,7 +53,7 @@ def solution(key,lock):
         augLockLength-keyLen이 아님.
         key는 어디부터 어디까지 움직이느냐?
         lock의 끄트머리에 걸칠 수 있는 부분까지 움직일 수 있다.
-        """
+        """   
         for i in range(2*lockLength):
             for j in range(2*lockLength):
                 for k in range(keyLength):
