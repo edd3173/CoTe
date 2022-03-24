@@ -1,86 +1,91 @@
 """
-자물쇠와 열쇠
+1 2 3
+4 5 6
+7 8 9
+
+7 4 1
+8 5 2
+9 6 3
 """
 
+import copy
 
-def rotate_matrix(a):
-    """
-    #Init new_mat
-    k=len(key[0])
-    #print(k)
-    #new_mat = [[0]* k for _ in range(k)]
-    new_mat=[]
-    #print(new_mat)
-    # for each col, replace it to new row
-    
-    for i in range(k):
-        cur_col=[]
-        for j in range(k-1,-1,-1):
-            cur_col.append(mat[j][i])
-        new_mat.append(cur_col)
-    return new_mat
-    """
-    
-    n=len(a)
-    m=len(a[0])
-    result=[[0] * n for _ in range(m)]
-    for i in range(n):
-        for j in range(m):
-            result[j][n-i-1]=a[i][j]
-    return result
 
-def check_cond(combined_matrix):
-    new_n=len(combined_matrix[0])
-    start=new_n//3
-    end=new_n//3 * 2
-    for i in range(start,end):
-        for j in range(start,end):
-            if combined_matrix[i][j]!=1:
+def rotateMatrix(myMat):
+    length = len(myMat[0])
+    newMat = []
+    for i in range(length):
+        curRow=[]
+        for j in range(length):
+            curRow.append(myMat[j][i])
+        curRow.reverse()
+        newMat.append(curRow)
+    return newMat
+
+def isValid(board):
+    # for middle of board, check if value is all '1'
+    length = len(board[0])
+    startIdx = length // 3
+    endIdx = startIdx * 2
+    
+    for i in range(startIdx,endIdx): # NOT endIdx+1.
+        for j in range(startIdx,endIdx):
+            if board[i][j] != 1:
                 return False
-    return True
-
-def solution(key, lock):
-    m=len(key[0])
-    n=len(lock[0])
-    
-    # Expand Lock to new_lock
-    new_n=3*len(lock[0])
-    new_lock = [[0]*new_n for _ in range(new_n)]
-    #print(new_lock)
-    
-    # Input val of original lock
-    start=new_n//3
-    end=new_n//3 * 2
-    
-    for i in range(start,end):
-        for j in range(start,end):
-            new_lock[i][j]=lock[i-start][j-start]
-
-    
-    # for every rotation
-    for rotate in range(4): # rotate 4 time
-        
-        key=rotate_matrix(key) # rotated
-        for i in range(0,new_n-n): # in new_lock
-            for j in range(0,new_n-n): # in new_lock
+    return True                    
+                        
             
-                for k in range(0,m):
-                    for l in range(0,m): # for each array of key
-                        
-                        new_lock[i+k][j+l]+=key[k][l] # make combined
-                        res = check_cond(new_lock) # check condition
-                        
-                if(res==True): # Becareful about indent(place) in loop. we check this after for(k,l), when insert is finished
+
+def solution(key,lock):
+    lockLength = len(lock[0])
+    keyLength=len(key[0])
+    augLockLength = 3 * lockLength
+    augLock = [[0] * augLockLength for _ in range(augLockLength)]
+    
+    # make augmented lock
+    for i in range(lockLength):
+        for j in range(lockLength):
+            augLock[i+lockLength][j+lockLength] = lock[i][j]
+    
+    for rotation in range(4):
+        key = rotateMatrix(key)
+        """
+        augLockLength-keyLen이 아님.
+        key는 어디부터 어디까지 움직이느냐?
+        lock의 끄트머리에 걸칠 수 있는 부분까지 움직일 수 있다.
+        """
+        for i in range(2*lockLength):
+            for j in range(2*lockLength):
+                for k in range(keyLength):
+                    for l in range(keyLength):
+                        augLock[i+k][j+l] += key[k][l] # board는 절대좌표다 k,l은 상대좌표
+                
+                """
+                k,l 문 안에서 check(augLock[][],key[][])를 하면 망한다!
+                왜? 전체 k와 auglock에 대해 판단을 해야지,
+                k의 원소 단위에서 판단하면 파편화 발생해서 틀림!
+                추가로, 딥카피 쓰지마 그냥;;
+                
+                """
+                
+                # board에 값 대입 후에 해봐야됨        
+                res = isValid(augLock)
+                if res==True:
                     return True
-                        
-                for k in range(0,m): # Same as here, restore
-                    for l in range(0,m): # for each array of key
-                        new_lock[i+k][j+l]-=key[k][l]
+                
+                
+                
+                for k in range(keyLength):
+                    for l in range(keyLength):
+                        augLock[i+k][j+l] -= key[k][l]
+
+                
     return False
 
-# Be aware of array copy!
+    
+
 
 key=[[0, 0, 0], [1, 0, 0], [0, 1, 1]]
 lock=[[1, 1, 1], [1, 1, 0], [1, 0, 1]]
 
-solution(key,lock)
+print(solution(key,lock))
