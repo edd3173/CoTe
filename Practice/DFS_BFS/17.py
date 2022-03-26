@@ -1,62 +1,29 @@
-"""
-경쟁적 전염
-"""
 from collections import deque
-from operator import truediv
-n,k = map(int,input().split())
-arr = []
-for _ in range(n):
+
+N,K = map(int,input().split())
+arr=[]
+for _ in range(N):
     arr.append(list(map(int,input().split())))
-ts,tx,ty = map(int,input().split())
-move_set = [(+1,0),(-1,0),(0,+1),(0,-1)]
-data=[]
+S,X,Y = map(int,input().split())
+viruses=[]
+moveSet = [(+1,0),(-1,0),(0,+1),(0,-1)]
 
-for i in range(n):
-    for j in range(n):
-       if arr[i][j] != 0 :
-           # insert type,time?,px,py
-           data.append((arr[i][j],0,i,j))
+for i in range(N):
+    for j in range(N):
+        if arr[i][j]!=0:
+            viruses.append((arr[i][j],i,j,0)) # 0 for time
 
-"""
-Queue를 어떻게 구성하는가! 잘 봐라
-"""
+viruses.sort() # 1찾고 append, 2찾고 append... 할거없이 걍 sort돌린다.
 
-
-data.sort() # sort by type. since small type goes first
-q=deque(data)
-
+q=deque(viruses)
+#print(q)
 while q:
-    type,time,x,y = q.popleft()
-    if time == ts:
-        break
-    
-    for move in move_set:
-        nx = x+move[0]
-        ny = y+move[1]
-        
-        
-        # WHAT DIFFERENCE?
-        
-        
-        if nx<0 or nx>=n or ny<0 or ny>=n or arr[nx][ny]!=0:
-            continue
-    
-        arr[nx][ny]=type
-        q.append((type,time+1,nx,ny))
-        
-        
-        """
-        if 0<=nx and nx<n and 0<=ny and ny<n:
-            if arr[nx][ny]==0:
-                arr[nx][ny]=type
-                q.append((type,time+1,nx,ny))
-        """
+    val,px,py,time = q.popleft() # Time을 update하는 tech 기억하기.
+    if time==S: break
+    for move in moveSet:
+        nx=px+move[0]; ny=py+move[1]
+        if 0<=nx<N and 0<=ny<N and arr[nx][ny]==0:
+            arr[nx][ny]=val
+            q.append((val,nx,ny,time+1))
 
-
-print(arr[tx-1][ty-1])
-
-"""
-KeyPoint : Queue를 3개를 만드는 것이 아니라, 큐에 작은 순서대로 넣는 것!
-"""
-        
-
+print(arr[X-1][Y-1])

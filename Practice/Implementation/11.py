@@ -20,7 +20,7 @@ for _ in range(k):
 l=int(input())
 for _ in range(l):
     x,c = input().split()
-    info.append((int(x),c)) # 아예 int로 바꿔서 넣는 것도 ㄱㅊ네.
+    info.append((int(x),c)) # 아예 int로 바꿔서 넣는 것도 ㄱㅊ네. -> Checked
 
 dx = [0,1,0,-1]; dy = [1,0,-1,0]
 
@@ -65,6 +65,79 @@ def simulate():
     return time
 
 print(simulate())
+
+
+
+"""
+<MYCODE>
+
+N=int(input())
+K=int(input())
+appleInfo=[]
+rotateInfo=[]
+for _ in range(K):
+    r,c = map(int,input().split())
+    appleInfo.append((r,c))
+L=int(input())
+for _ in range(L):
+    X,C = input().split()
+    rotateInfo.append((int(X),C))
+
+# D : moveSet[i++], C : moveSet[i--]
+moveSet = [(0,+1),(+1,0),(0,-1),(-1,0)]
+snake=[]
+px=1; py=1
+snake.append((px,py)) # init snake
+dirIdx=0 # initial direction
+curHead = snake[0] # initial head
+Time=0
+
+def updateDir(Time,dirIdx):
+    for info in rotateInfo: # iterate rotateInfo
+        if Time==info[0]: # if that time
+            if info[1]=='D': # rotate right 
+                dirIdx+=1
+                if dirIdx == 4: dirIdx=0 # OOR
+            else:
+                dirIdx-=1 # rotate left
+                if dirIdx == -1: dirIdx=3 # OOR
+    return dirIdx
+    
+        
+
+while True: # until snake bumps wall, or its body
+    Time+=1 # updates time
+    # print("Time:",Time)
+    # print("Snake before:", snake)
+    # print("Direction: ",moveSet[dirIdx])
+    
+    curHead = snake[-1] 
+    nextHead = (curHead[0]+moveSet[dirIdx][0],curHead[1]+moveSet[dirIdx][1]) # find next head
+    # print("nextHead : ",nextHead)
+    
+    # ESCAPE : # newHead is OOR, or bump it's body
+    if nextHead[0] > N or nextHead[1] > N or nextHead[0] <=0 or nextHead[1] <=0 \
+        or nextHead in snake: 
+        # print("Escape in Time,",Time)
+        # print("newHead ",nextHead,"is OOR")
+        # print("or nextHead :",nextHead,"bump its body snake:",snake)
+        break
+    
+    if nextHead in appleInfo: # exists apple
+        appleInfo.remove(nextHead) # remove apple
+        # tail doesn't move
+        snake.append(nextHead) # append the head
+    else:
+        snake.pop(0) # remove the tail
+        snake.append(nextHead) # append the head
+
+    # print("snake after: ",snake)
+    # print("Updating dir:")
+    dirIdx=updateDir(Time,dirIdx) # CAUTION! direction update AFTER move
+    #print("newDirection : ",moveSet[dirIdx])
+    
+print(Time)
+"""
             
         
             
