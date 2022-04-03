@@ -1,45 +1,18 @@
-
 import heapq
 
+"Time Complexity : Use heap"
+
 n=int(input())
-cards=[]
+h=[]
 for _ in range(n):
-    heapq.heappush(cards,int(input()))
-    #arr.append(int(input()))
-#arr.sort()
-Sum=0
-#print(arr)
+    heapq.heappush(h,int(input()))
 
-'''
-10
-20
-40
-50
+ans=0
 
-10+20 = 30
-+
-30+40 = 70
-+
-70+50 = 120
+while len(h)!=1: # until single value left
+    first = heapq.heappop(h) # pop minimum
+    second = heapq.heappop(h) # pop second minimum
+    ans += first+second # add to value
+    heapq.heappush(h,first+second) # push merged card
 
-
-계속 연쇄적으로 더해지는 꼴이 트리랑 비슷하네!!!!
-
-'''
-
-if n==1:
-    Sum=0
-else:
-    while True:
-        
-        first = heapq.heappop(cards)
-        second = heapq.heappop(cards)
-        now = first+second
-        Sum+=now
-        if len(cards)==0:
-            break
-        heapq.heappush(cards,now)
-    
-print(Sum)
-
-#print(ans)
+print(ans)
