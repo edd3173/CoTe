@@ -65,11 +65,13 @@ def bfs(start):
 
 bfs(1)
 print(distance)
-distance[0]=-1
-cnt=0
-maxVal = max(distance)
-maxIdx = distance.index(maxVal)
-for d in distance:
-    if d == maxVal: cnt+=1
 
-print(maxIdx,maxVal,cnt)
+
+maxVal=-1; maxNode=-1; cnt=0
+
+maxVal = max(distance[1:])
+maxNode = distance.index(maxVal)
+cnt = distance.count(maxVal)
+
+
+print(maxNode,maxVal,cnt)
