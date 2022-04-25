@@ -1,66 +1,40 @@
 n,m = map(int,input().split())
-arr=list(map(int,input().split()))
+tempArr = list(map(int,input().split()))
+realArr = []
+for i in range(0,n):
+    cur = tempArr[i*m:i*m+m]
+    realArr.append(cur)
 
-dp=[]; j=0
+#print(realArr)
+
+dp = [[-1] * m for _ in range(n)]
 for i in range(n):
-  dp.append(arr[j:j+m]) # 한번에 입력&assign이 아니라, 입력받고 나서 옮긴다.
-  j+=m
+    for j in range(m):
+        dp[i][j]=realArr[i][j]
 
-""" 또는 이렇게
-for i in range(n):
-      arr[i]=data[i*m:i*m+m]
-"""
+print(dp)
 
 
-#print(dp)
-
-for i in range(n):
-  for j in range(1,m):
-    if i == 0: # possible direction: from left, leftdown
-      # NOTICE: arr[i][j] is wrong! arr is 1d array
-      dp[i][j]=dp[i][j]+max(dp[i][j-1],dp[i+1][j-1])
-    elif i == n-1: # possible direction: from left, leftup
-      dp[i][j]=dp[i][j]+max(dp[i-1][j-1],dp[i][j-1])
-    else: # 3 possible direction.
-      dp[i][j]=dp[i][j]+max(dp[i-1][j-1],dp[i][j-1],dp[i+1][j-1])
-
-res=0
-for i in range(n):
-  res=max(res,dp[i][m-1])
-
-print(res)
 
 """
-import copy
-
-n,m=map(int,input().split())
-
-
-data=list(map(int,input().split()))
-
-arr = [[0]*m for _ in range(n)]
-dp = [[0]*m for _ in range(n)]
-
-for i in range(n):
-  arr[i]=data[i*m:i*m+m]
-
-dp = copy.deepcopy(arr)
-
-for i in range(n):
-  for j in range(1,m):
-    # Case 1: bottom boundary
-      if i == n-1: # from left or leftup
-        dp[i][j]=max(dp[i][j-1],dp[i-1][j-1])+arr[i][j]
-    # Case 2: top boundary
-      elif i == 0: # from leftdown or left
-        dp[i][j]=max(dp[i][j-1],dp[i+1][j-1])+arr[i][j]
-    # Case 3:
-      else:
-        dp[i][j]=max(dp[i][j-1],dp[i-1][j-1],dp[i+1][j-1])+arr[i][j]
-    
-res=0
-for i in range(n):
-  res=max(res,dp[i][m-1])
-
-print(res)
+FOR loop에서 IJ의 순서에 따라 답이 틀림!
+최종적으로 가로 방향으로 진행을 하니까!!!
+그러네;;;
 """
+
+for j in range(1,m): 
+    for i in range(n): 
+        if i==0: # top
+            dp[i][j] = max(dp[i][j-1],dp[i+1][j-1])+realArr[i][j]
+        elif i==n-1: # bottom
+            dp[i][j] = max(dp[i-1][j-1],dp[i][j-1])+realArr[i][j]
+        else:
+            dp[i][j] = max(dp[i-1][j-1],dp[i][j-1],dp[i+1][j-1])+realArr[i][j]
+
+print(dp)
+
+ans=-1
+for i in range(n):
+    ans=max(ans,dp[i][m-1])
+
+print(ans)
