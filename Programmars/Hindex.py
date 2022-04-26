@@ -3,7 +3,7 @@ def solution(citations):
     citations.sort(reverse=True)
     #print(citations)
     possible=[]
-    for h in range(max(citations),min(citations)-1,-1):
+    for h in range(len(citations),-1,-1): # 최대 배열 길이만큼 나타날 수 잇으니까..
         upper=[]; lower=[];
         for c in citations:
             if c>=h: 
@@ -15,11 +15,7 @@ def solution(citations):
         #print("lower",lower)
         if len(upper) >= h and len(lower) <= h:
             possible.append(h)
-    print(possible)
+    #print(possible)
     answer = max(possible)
     return answer
 
-
-citations=[10,10,10,10,10]
-#citations=[0,0,0,0,0]
-print(solution(citations))
