@@ -1,25 +1,13 @@
-def solution(citations):
-    answer=-1
-    citations.sort(reverse=True)
-    #print(citations)
-    possible=[]
-    for h in range(max(citations),min(citations)-1,-1):
-        upper=[]; lower=[];
-        for c in citations:
-            if c>=h: 
-                upper.append(c)
-            else:
-                lower.append(c)
-        #print("h:",h)
-        #print("upper:",upper)
-        #print("lower",lower)
-        if len(upper) >= h and len(lower) <= h:
-            possible.append(h)
-    print(possible)
-    answer = max(possible)
-    return answer
+def binary_search(arr,target,start,end):
+    while start<=end:
+        mid = (start+end) // 2
+        if arr[mid]==target:
+            return mid
+        elif arr[mid]<target:
+            start=mid+1
+        else:
+            end=mid-1
+    return None
 
-
-citations=[10,10,10,10,10]
-#citations=[0,0,0,0,0]
-print(solution(citations))
+N,M = map(int,input().split())
+arr = list(map(int,input()))

@@ -18,4 +18,3 @@ def solution(citations):
     #print(possible)
     answer = max(possible)
     return answer
-
