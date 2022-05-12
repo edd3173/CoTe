@@ -1,0 +1,17 @@
+from tkinter import N
+
+
+data = input().split('-')
+num=[]
+for d in data:
+    sumVal=0
+    s = d.split('+')
+    print(s)
+    for j in s:
+        sumVal+=int(j)
+    num.append(sumVal)
+
+ans=num[0]
+for n in num[1:]:
+    ans-=n
+print(ans)

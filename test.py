@@ -1,36 +1,27 @@
-def solution(new_id):
-    answer = ''
-    
-    #step1
-    new_id = new_id.lower()
-    
-    #step2
-    for ch in new_id:
-        if ch.isalpha() or ch.isdigit() or ch=='-' or ch=='_' or ch=='.':
-            continue
-        else:
-            new_id = new_id.replace(ch,"")
-    print(new_id)
-    
-    #step3
-    targets=[]
-    for i in range(len(new_id)-1):
-        if new_id[i]=='.' and new_id[i+1]=='.':
-            targets.append(i)
-    
-    for i in range(len(targets)):
-        new_id = new_id.replace("..",".")
-    print(new_id)
-    
-    #step4
-    if new_id[0]=='.':
-        new_id = new_id[1:]
-    #print(new_id[-1])        
-    
-    print("["+new_id+"]")
-    print(new_id[-1])
-    
-    return answer
+import heapq
 
-myStr="...!@BaT#*..y.abcdefghijklm"
-solution(myStr)
+def dijk(start):
+    q=[]
+    heapq.heappush(q,(0,start))
+    distance[start]=0
+    while q:
+        dist,now = heapq.heappop(q)
+        if distance[now] < dist: continue
+        for i in graph[now]:
+            cost = dist+i[1]
+            if cost < distance[i[0]]:
+                distance[i[0]]=cost
+                heapq.heappush(q,(cost,i[0]))
+            
+
+INF=int(1e9)
+N,M,C = map(int,input().split())
+graph= [[] for _ in range(N+1)]
+distance = [INF] * (N+1)
+for _ in range(M):
+    x,y,z = map(int,input().split())
+    graph[x].append((y,z))
+
+dijk(C)
+for i in range(1,N+1):
+    print(distance[i])
